@@ -8,7 +8,7 @@ class Room:
         self.path = path
         self.back = []
 
-    def enter(self):
+    def enter(self, hero):
         print(self.desc)
         if "died" in self.desc:
             print('You have Lost!')
@@ -17,19 +17,18 @@ class Room:
         else:
             print("The following paths lead out of this room:")
             if self.left is not None:
-                print('\nleft:')
+                print('\nLeft:')
                 print(self.left.path)
             if self.straight is not None:
-                print('\nstraight:')
+                print('\nStraight:')
                 print(self.straight.path)
             if self.right is not None:
-                print('\nright:')
+                print('\nRight:')
                 print(self.right.path)
-            print("\nor go back")
-            self.exit()
+            print("\nOr go back")
+            self.exit(hero)
 
-
-    def exit(self):
+    def exit(self, hero):
         answer = ""
         while answer not in ["left", "right", "straight", "back"]:
             answer = input("\nWhere do you want to go? > ").lower()
@@ -37,23 +36,23 @@ class Room:
         if answer == "left":
             self.back.append(self)
             self.left.back = self.back
-            self.left.enter()
+            self.left.enter(hero)
 
         elif answer == "right":
             self.back.append(self)
             self.right.back = [] + self.back
-            self.right.enter()
+            self.right.enter(hero)
 
         elif answer == "straight":
             self.back.append(self)
             self.straight.back = [] + self.back
-            self.straight.enter()
+            self.straight.enter(hero)
 
         elif answer == "back":
             if self.back == []:
                 print("You can't go back, the entrance is locked.")
-                self.exit()
+                self.exit(hero)
             else:
-                self.back.pop().enter()
+                self.back.pop().enter(hero)
 
 

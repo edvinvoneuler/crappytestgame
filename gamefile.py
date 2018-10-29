@@ -1,4 +1,5 @@
 import Room as R
+import Hero as Hero
 
 room_02 = R.Room("THIS ROOM IS FULL OF SNAKES! You died!", None, None, None,
                  "You hear hissing at the end of this corridor")
@@ -12,5 +13,7 @@ room_04 = R.Room("This rooms seems to be a bedroom of a warrior, there's pieces 
 
 room_01 = R.Room("This is an empty room", room_02, room_03, room_04)
 
-room_01.enter()
+
+you = Hero.create_hero()
+room_01.enter(you)
 
