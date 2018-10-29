@@ -6,7 +6,7 @@ class Room:
         self.right = right
         self.straight = straight
         self.path = path
-        self.back = None
+        self.back = []
 
     def enter(self):
         print(self.desc)
@@ -25,17 +25,35 @@ class Room:
             if self.right is not None:
                 print('\nright:')
                 print(self.right.path)
-
+            print("\nor go back")
             self.exit()
+
 
     def exit(self):
         answer = ""
-        while answer not in ["left", "right", "straight"]:
-            answer = input("\nWhere do you want to go?").lower()
+        while answer not in ["left", "right", "straight", "back"]:
+            answer = input("\nWhere do you want to go? > ").lower()
+
         if answer == "left":
+            self.back.append(self)
+            self.left.back = self.back
             self.left.enter()
+
         elif answer == "right":
+            self.back.append(self)
+            self.right.back = [] + self.back
             self.right.enter()
+
         elif answer == "straight":
+            self.back.append(self)
+            self.straight.back = [] + self.back
             self.straight.enter()
+
+        elif answer == "back":
+            if self.back == []:
+                print("You can't go back, the entrance is locked.")
+                self.exit()
+            else:
+                self.back.pop().enter()
+
 
