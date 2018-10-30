@@ -1,7 +1,8 @@
 import Mob
 import Weapon as We
 import random
-
+import sys
+import time
 
 class Hero:
 
@@ -20,7 +21,7 @@ class Hero:
                 return item
 
     def fight(self, mob):
-
+        print("A hostile", mob.name, "has appeared!\nPrepare to fight!")
         choice = None
         print('You have:')
         for item in self.inventory:
@@ -31,9 +32,20 @@ class Hero:
         weapon = self.get_item_from_name(choice)
 
         while self.hp > 0:
+            print('You attack your foe:')
+            time.sleep(2)
             mob.hp = mob.hp - weapon.strike()
             if mob.hp > 0:
+                time.sleep(2)
+                print(mob.name, 'is attacking you:')
+                time.sleep(2)
                 self.hp = self.hp - mob.weapon.strike()
+                time.sleep(2)
+            else:
+                break
+        if self.hp < 0:
+            print('You\'ve been defeted by a', mob.name, "\n You are dead.")
+            sys.exit()
         print("The", mob.name, "is defeated.")
 
 
@@ -49,9 +61,6 @@ you = create_hero("ASSFACE")
 sword = We.Weapon("Sword")
 
 you.pick_up(sword)
-
-for item in you.inventory:
-    print(item.name)
 
 mob = Mob.Mob("Kobold")
 you.fight(mob)

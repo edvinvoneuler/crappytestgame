@@ -7,4 +7,4 @@ class Mob:
         self.name = name
         if name == "Kobold":
             self. weapon = We.Weapon("Kobold Spear")
-            self.hp = 38
+            self.hp = 40
