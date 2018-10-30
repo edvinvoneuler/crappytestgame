@@ -33,20 +33,21 @@ class Hero:
 
         while self.hp > 0:
             print('You attack your foe:')
-            time.sleep(2)
+            time.sleep(1)
             mob.hp = mob.hp - weapon.strike()
             if mob.hp > 0:
-                time.sleep(2)
+                time.sleep(1)
                 print(mob.name, 'is attacking you:')
-                time.sleep(2)
+                time.sleep(1)
                 self.hp = self.hp - mob.weapon.strike()
-                time.sleep(2)
+                time.sleep(1)
             else:
                 break
         if self.hp < 0:
             print('You\'ve been defeted by a', mob.name, "\n You are dead.")
             sys.exit()
-        print("The", mob.name, "is defeated.")
+        time.sleep(1)
+        print("The", mob.name, "is defeated!")
 
 
 def create_hero(name=""):
