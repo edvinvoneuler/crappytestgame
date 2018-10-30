@@ -1,3 +1,5 @@
+import random
+
 class Weapon:
 
     def __init__(self, name):
@@ -13,3 +15,18 @@ class Weapon:
         elif name == "Dagger":
             self.dmg = range(10, 16)
             self.cth = 0.80
+        elif name == "Claws":
+            self.dmg = range(10, 12)
+            self.cth = 0.7
+        elif name == "Bite":
+            self.dmg = 18
+            self.cth = 0.4
+
+    def strike(self):
+        if random.uniform(0, 1) > self.cth:
+            print('Your attack missed!')
+            return 0
+        else:
+            print('You struck your foe with a mighty blow!')
+            return self.dmg[random.randint(0, len(self.dmg))-1]
+
