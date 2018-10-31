@@ -1,12 +1,15 @@
+import Mob
+import Hero
 class Room:
 
-    def __init__(self, desc, left=None, right=None, straight=None, path=None):
+    def __init__(self, desc, left=None, right=None, straight=None, path=None, mob=None):
         self.desc = desc
         self.left = left
         self.right = right
         self.straight = straight
         self.path = path
         self.back = []
+        self.mob = mob
 
     def enter(self, hero):
         print(self.desc)
@@ -15,6 +18,15 @@ class Room:
         elif "you won!" in self.desc:
             print('Congratulations, you won!')
         else:
+            if self.mob is not None:
+                print("A hostile", self.mob.name, "has appeared!")
+                choice = " "
+                while choice not in "YNyn":
+                    choice = input("Do you want to fight it? (y/n)")
+                if choice in "Nn":
+                    self.back.pop().enter(hero)
+                else:
+                    hero.fight(self.mob)
             print("The following paths lead out of this room:")
             if self.left is not None:
                 print('\nLeft:')
@@ -55,4 +67,9 @@ class Room:
             else:
                 self.back.pop().enter(hero)
 
+if __name__ == "__main__":
+
+    you = Hero.create_hero("ASSFACE")
+    room_01 = Room("This room seems empty", mob=Mob.Mob("Kobold"))
+    room_01.enter(you)
 
