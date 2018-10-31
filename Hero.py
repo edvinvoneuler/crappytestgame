@@ -34,17 +34,18 @@ class Hero:
             if item.name == name:
                 return item
 
-    def fight(self, mob):
+    def fight(self, mob, room):
         choice = None
         print('You have:')
         for item in self.inventory:
             print(item.name)
         print('in your inventory.')
         while choice not in [item.name for item in self.inventory]:
-            choice = input("which weapon do you choose? >")
+            choice = input("which weapon do you choose? > ")
         weapon = self.get_item_from_name(choice)
 
         while self.hp > 0:
+
             print('You attack your foe:')
             time.sleep(1)
             mob.hp = mob.hp - weapon.strike()
@@ -58,7 +59,11 @@ class Hero:
                 time.sleep(1)
                 self.hp_check()
                 time.sleep(1)
-
+                cont = " "
+                while cont not in "YyNn":
+                    cont = input("Do you want to continue the fight? > ")
+                if cont in "Nn":
+                    room.back.pop().enter(self)
             else:
                 break
         if self.hp < 0:

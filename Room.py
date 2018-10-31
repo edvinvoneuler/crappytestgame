@@ -26,7 +26,7 @@ class Room:
                 if choice in "Nn":
                     self.back.pop().enter(hero)
                 else:
-                    hero.fight(self.mob)
+                    hero.fight(self.mob,self)
             print("The following paths lead out of this room:")
             if self.left is not None:
                 print('\nLeft:')
@@ -67,9 +67,12 @@ class Room:
             else:
                 self.back.pop().enter(hero)
 
+
 if __name__ == "__main__":
 
     you = Hero.create_hero("ASSFACE")
-    room_01 = Room("This room seems empty", mob=Mob.Mob("Kobold"))
+    room_02 = Room("This room seems empty", mob=Mob.Mob("Kobold"),path="You hear scratching noises "
+                                                                       "coming from this door.")
+    room_01 = Room("This rooms is made of placeholder text!", left=room_02)
     room_01.enter(you)
 
