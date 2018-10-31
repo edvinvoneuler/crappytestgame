@@ -44,7 +44,7 @@ class Hero:
             else:
                 break
         if self.hp < 0:
-            print('You\'ve been defeted by a', mob.name, "\n You are dead.")
+            print('You\'ve been defeated by a', mob.name, "\n You are dead.")
             sys.exit()
         time.sleep(1)
         print("The", mob.name, "is defeated!")
